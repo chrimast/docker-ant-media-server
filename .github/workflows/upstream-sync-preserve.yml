@@ -24,13 +24,13 @@ jobs:
           fetch-depth: 0
       - name: Merge upstream without overwriting fork changes
         env:
-          rez0n/docker-ant-media-server_REPO: rez0n/docker-ant-media-server
-          rez0n/docker-ant-media-server_master: UPmaster
+          UPSTREAM_REPO: rez0n/docker-ant-media-server
+          UPSTREAM_BRANCH: master
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote add upstream "https://github.com/${rez0n/docker-ant-media-server_REPO}.git" 2>/dev/null || true
-          git fetch --no-tags upstream "${rez0n/docker-ant-media-server_master}"
-          git merge --no-ff --no-edit "upstream/${rez0n/docker-ant-media-server_master}"
+          git remote add upstream "https://github.com/${UPSTREAM_REPO}.git" 2>/dev/null || true
+          git fetch --no-tags upstream "${UPSTREAM_BRANCH}"
+          git merge --no-ff --no-edit "upstream/${UPSTREAM_BRANCH}"
           git push origin HEAD:master
